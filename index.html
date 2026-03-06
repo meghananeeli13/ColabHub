@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoLabHub - Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h1>CoLabHub</h1>
+            <p>Find your perfect project team</p>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" id="username-input" placeholder="Enter your name..." required>
+                <input type="password" placeholder="Password (Any)" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-screen" class="container hidden">
+        
+        <div class="header">
+            <div>
+                <h2 style="margin:0">👋 Welcome, <span id="user-display">User</span></h2>
+                <small style="color: #666">Recommended Projects for you</small>
+            </div>
+            <button onclick="handleLogout()" class="logout-btn">Logout</button>
+        </div>
+
+        <div id="feed-container">
+            </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
