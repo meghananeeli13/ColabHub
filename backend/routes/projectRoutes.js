@@ -22,6 +22,7 @@ const {
   deleteProject,
   changeCollaboratorRole,
   getCollaboratedProjects,
+  getRecommendedProjects,
 } = require("../controllers/projectController");
 
 const {
@@ -40,6 +41,7 @@ router.get("/collaborations", authMiddleware, getCollaboratedProjects);
 router.get("/pending-requests", authMiddleware, getOwnerPendingRequests);
 
 // 🤖 AI Task Suggestions (Owner Only)
+router.get("/recommended", authMiddleware, getRecommendedProjects);
 router.get("/:id/suggest-tasks", authMiddleware, resolveRole, requireRole("owner"), suggestTasks);
 
 router.post("/:id/request", authMiddleware, requestToJoin);

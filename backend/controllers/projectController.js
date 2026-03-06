@@ -4,6 +4,8 @@ const asyncHandler = require("express-async-handler");
 const Project = require("../models/projects");
 const Task = require("../models/taskModel");
 const mongoose = require("mongoose");
+const User = require("../models/User");
+
 
 // 🔹 Create Project (Protected)
 const createProject = asyncHandler(async (req, res) => {
@@ -376,6 +378,30 @@ const changeCollaboratorRole = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Role updated successfully" });
 });
 
+// 🔹 Get Recommended Projects based on user skills
+const getRecommendedProjects = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    const skillsRegex = user.skills.map((skill) => new RegExp(`^${skill}$`, "i"));
+
+    const projects = await Project.find({
+      techStack: { $in: skillsRegex },
+      createdBy: { $ne: req.user.id },
+      "collaborators.user": { $ne: req.user.id },
+    })
+      .populate("createdBy", "name email")
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error("Recommended error:", error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 module.exports = {
   createProject,
   getProjects,
@@ -389,5 +415,6 @@ module.exports = {
   updateProject,
   deleteProject,
   changeCollaboratorRole,
+  getRecommendedProjects,
   getCollaboratedProjects,
 }

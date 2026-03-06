@@ -24,13 +24,13 @@ const seedDatabase = async () => {
     const hashedPassword = await bcrypt.hash("123456", 10);
 
     // 👤 Create 5 Users
-    const users = await User.insertMany([
-      { name: "Alice", email: "alice@test.com", password: hashedPassword },
-      { name: "Bob", email: "bob@test.com", password: hashedPassword },
-      { name: "Charlie", email: "charlie@test.com", password: hashedPassword },
-      { name: "David", email: "david@test.com", password: hashedPassword },
-      { name: "Eve", email: "eve@test.com", password: hashedPassword },
-    ]);
+  const users = await User.insertMany([
+  { name: "Alice", email: "alice@test.com", password: hashedPassword, skills: ["React", "Node.js", "MongoDB"] },
+  { name: "Bob", email: "bob@test.com", password: hashedPassword, skills: ["Python", "FastAPI", "React"] },
+  { name: "Charlie", email: "charlie@test.com", password: hashedPassword, skills: ["React Native", "Firebase"] },
+  { name: "David", email: "david@test.com", password: hashedPassword, skills: ["MERN", "Node.js"] },
+  { name: "Eve", email: "eve@test.com", password: hashedPassword, skills: ["React", "MongoDB", "Node.js"] },
+]);
 
     console.log("Users created.");
 
